@@ -7,11 +7,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   background-color: #282c34;
@@ -23,9 +18,146 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.form{
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+}
+.form h2{
+  position: absolute;
+  top: 10px;
+}
+.form label{
+  position: absolute;
+  top: 100px;
+}
+h2 {
+  position: absolute;
+  top: 10px;
+}
+h3{
+  font-size: 12px;
+}
+select {
+  width: 300px; 
+  padding: 8px; 
+  margin: 5px 0; 
+}
+.AdminPage{
+  position: absolute;
+  left: 0px;
+  top: 30px;
+}
+.updatebutton{}
 
-.App-link {
-  color: #61dafb;
+.AdminPage{
+  position: absolute;
+  top: 0;
+}
+.adminconfig{
+  position: absolute;
+  left: 30px;
+  top: 80px;
+}
+.operators{
+  display: flex;
+  justify-content: space-between;
+}
+.barber1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 500px;
+  height: 500px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 1%;
+  
+
+}
+.barber1 button{
+  position: absolute;
+  top: 70%;
+
+}
+h3{
+  position: absolute;
+  top: 65%;
+}
+#icon{
+  position: absolute;
+  top: 25%;
+}
+
+#submit{
+  position: absolute;
+  top: 90%;
+  left: 300px;
+}
+.timetable label{
+  top: 40px;
+  position: absolute;
+  left: 225px;
+}
+.timedsp{
+  position: relative;
+  top: 150px;
+  left: 18px;
+}
+.hour{
+  top: 50px;
+  position: absolute;
+  
+}
+
+.slider{
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+}
+.slide-button{
+  border-radius: 0.5em;
+  width: 300px;
+  height: 200px;
+  background-color: #767587;
+  border: none;
+}
+.slick-slider{
+  height: 200px;
+}
+.viewcarousel{
+  top: 50%;
+  position: absolute;
+  left: 150px;
+  width: 25vw;
+  height: 300px;
+}
+.viewcarousel a{
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+button {
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  margin: 0 10px;
+  background: none;
+
+}
+.opcoes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ccc; 
+  padding: 20px; 
+  border-radius: 8px; 
 }
 
 @keyframes App-logo-spin {
