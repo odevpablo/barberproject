@@ -5,8 +5,8 @@ const AgendamentoPage = () => {
 
   return (
     <div className='form'>
-      <h2>Opções de Agendamento</h2>
-      <label>Selecione um Barbeiro:</label>
+      <h2>Sua Barbearia</h2>
+      <label>Selecione um Profissional:</label>
       <OptionsBarber/>
     </div>
   );

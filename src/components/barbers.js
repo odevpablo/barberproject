@@ -27,6 +27,7 @@ const OptionsBarber = () => {
         hoverable
         style={{
           width: 240,
+          borderRadius: 3,
         }}
         cover={<img alt="example" src={imagem} />}
       >

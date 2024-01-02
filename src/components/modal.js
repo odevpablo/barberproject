@@ -44,7 +44,7 @@ const MarcarHorario = () => {
       Selecionar
     </Button>
     <AntModal
-      title="Basic Modal"
+      title="Horários Disponíveis."
       visible={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
