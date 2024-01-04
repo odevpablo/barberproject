@@ -5,14 +5,28 @@ import FormBarber from './form';
 const MarcarHorario = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [otherData, setOtherData] = useState('');
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
-    console.log('Card selecionado:', selectedCard);
+    fetch('http://localhost:3001/api/salvarSelecao', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ selectedCard, otherData }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setIsModalOpen(false);
+      })
+      .catch(error => {
+        console.error('Erro ao salvar seleção:', error);
+      });
   };
 
   const handleCancel = () => {
@@ -32,10 +46,10 @@ const MarcarHorario = () => {
   };
 
   const cards = [
-    { id: 1, title: 'Corte 1', content: 'Degrade', image: 'https://i.ytimg.com/vi/ZnReROilfjg/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AGOBYAC4AOKAgwIABABGFcgUyhlMA8=&rs=AOn4CLCp6_o0pq12El1lCWImJKfRzb8Nzw', price: 'R$ 50,00' },
-    { id: 2, title: 'Corte 2', content: 'Degrade + Barba', price: 'R$ 70,00' },
-    { id: 3, title: 'Corte 3', content: 'Platinado', price: 'R$ 80,00' },
-    { id: 4, title: 'Corte 4', content: 'Pigmentação', price: 'R$ 60,00' },
+    { id: 1, title: 'Degrade', image: '', price: 'R$ 50,00' },
+    { id: 2, title: 'Degrade + Barba', price: 'R$ 70,00' },
+    { id: 3, title: 'Platinado', price: 'R$ 80,00' },
+    { id: 4, title: 'Pigmentação', price: 'R$ 60,00' },
   ];
 
   return (
@@ -44,14 +58,14 @@ const MarcarHorario = () => {
       Selecionar
     </Button>
     <AntModal
+      className='modal'
       title="Horários Disponíveis."
       visible={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
       okText="Agendar"
       style={{
-        minHeight: '500px',   // Ajuste da altura mínima
-        minWidth: '620px',    // Ajuste da largura mínima para acomodar a margem
+        width: '80%',  
         borderRadius: '10px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         display: 'flex',
@@ -69,8 +83,9 @@ const MarcarHorario = () => {
             title={card.title}
             extra={<a href="#" onClick={() => handleCardClick(card.id)}>Selecionar</a>}
             style={{
-              width: 300,
+              width: '250px',
               marginBottom: '16px',
+              backgroundColor: '#E4F1FE',
               border: selectedCard === card.id ? '2px solid #1890ff' : 'none',
             }}
           >

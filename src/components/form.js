@@ -17,38 +17,14 @@ const tailLayout = {
 };
 const FormBarber = () => {
   const [form] = Form.useForm();
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({
-          note: 'Hi, man!',
-        });
-        break;
-      case 'female':
-        form.setFieldsValue({
-          note: 'Hi, lady!',
-        });
-        break;
-      case 'other':
-        form.setFieldsValue({
-          note: 'Hi there!',
-        });
-        break;
-      default:
-    }
-  };
+ 
   const onFinish = (values) => {
     console.log(values);
   };
   const onReset = () => {
     form.resetFields();
   };
-  const onFill = () => {
-    form.setFieldsValue({
-      note: 'Hello world!',
-      gender: 'male',
-    });
-  };
+ 
   return (
     <Form
       {...layout}
@@ -81,7 +57,6 @@ const FormBarber = () => {
       >
         <Select
           placeholder="Selecione um horário"
-          onChange={onGenderChange}
           allowClear
         >
           <Option value="male">7:00</Option>
