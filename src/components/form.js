@@ -1,6 +1,8 @@
-import React from 'react';
-import { Button, Form, Input, Select, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Form, Input, Select } from 'antd';
+
 const { Option } = Select;
+
 const layout = {
   labelCol: {
     span: 8,
@@ -9,22 +11,41 @@ const layout = {
     span: 16,
   },
 };
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
+
 const FormBarber = () => {
   const [form] = Form.useForm();
- 
+  const [horarios, setHorarios] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/api/horarios')
+      .then(response => response.json())
+      .then(data => setHorarios(data))
+      .catch(error => console.error('Erro ao obter horários:', error));
+  }, []);
+
   const onFinish = (values) => {
     console.log(values);
+
+    const { note, horario, customizeGender } = values;
+
+    fetch('http://localhost:3001/api/salvarSelecao', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ note, horario, customizeGender }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Lógica adicional, se necessário, após a conclusão da chamada à API
+      })
+      .catch(error => {
+        console.error('Erro ao salvar seleção:', error);
+      });
+
   };
-  const onReset = () => {
-    form.resetFields();
-  };
- 
+
   return (
     <Form
       {...layout}
@@ -41,50 +62,35 @@ const FormBarber = () => {
         rules={[
           {
             required: true,
+            message: 'Por favor, insira o nome!',
           },
         ]}
       >
         <Input />
       </Form.Item>
+
       <Form.Item
         name="horario"
         label="Horários"
         rules={[
           {
             required: true,
+            message: 'Por favor, selecione um horário!',
           },
         ]}
       >
-        <Select
-          placeholder="Selecione um horário"
-          allowClear
-        >
-          <Option value="male">7:00</Option>
-          <Option value="female">8:00</Option>
-          <Option value="other">9:00</Option>
+        <Select placeholder="Selecione um horário" allowClear>
+          {horarios.map(horario => (
+            <Option key={horario} value={horario}>
+              {horario}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
-      <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-      >
-        {({ getFieldValue }) =>
-          getFieldValue('gender') === 'other' ? (
-            <Form.Item
-              name="customizeGender"
-              label="Customize Gender"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          ) : null
-        }
-      </Form.Item>
-      </Form>
+
+     
+    </Form>
   );
 };
+
 export default FormBarber;
