@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import '../App.css';
 import {
   DesktopOutlined,
-  FileOutlined,
+  LogoutOutlined,
   PieChartOutlined,
-  TeamOutlined,
+  QuestionCircleOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+import { Breadcrumb, Button, Layout, Menu, theme } from 'antd';
+
+const { Header, Content, Sider } = Layout;
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -16,27 +19,32 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
+
 const items = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
+  getItem('Carga Horária', '1', <PieChartOutlined />),
+  getItem('Configurar Horários', '2', <DesktopOutlined />),
+  getItem('Barbeiros', 'sub1', <UserOutlined />, [
+    getItem('Emerson', '3'),
   ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
+  getItem('Suporte', '9', <QuestionCircleOutlined />),
 ];
+
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <Layout
-      id='AdminPage'
+      id="AdminPage"
       style={{
         minHeight: '100vh',
+        zIndex: 1001,
       }}
     >
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
@@ -59,30 +67,27 @@ const AdminPage = () => {
             style={{
               margin: '16px 0',
             }}
-          >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
+          ></Breadcrumb>
           <div
+            className="viewAdmin"
             style={{
               padding: 24,
-              minHeight: 360,
+              minHeight: 680,
+              width: '85vw',
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
           >
-            Bill is a cat.
+
+            
           </div>
         </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Ant Design ©2023 Created by Ant UED
-        </Footer>
       </Layout>
+      <Button id='back' type="primary" icon={<LogoutOutlined />} onClick={handleGoBack}>
+          </Button>
     </Layout>
+    
   );
 };
+
 export default AdminPage;

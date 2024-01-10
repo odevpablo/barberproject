@@ -75,7 +75,7 @@ const MarcarHorario = () => {
   };
 
   const cards = [
-    { id: 1, title: 'Degrade', image: '', price: 'R$ 50,00' },
+    { id: 1, title: 'Degrade', image: 'https://i.pinimg.com/564x/92/2f/b5/922fb501e7eb3756a76367c54909f503.jpg', price: 'R$ 50,00' },
     { id: 2, title: 'Degrade + Barba', price: 'R$ 70,00' },
     { id: 3, title: 'Platinado', price: 'R$ 80,00' },
     { id: 4, title: 'Pigmentação', price: 'R$ 60,00' },

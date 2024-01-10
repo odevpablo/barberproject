@@ -1,40 +1,23 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 import './App.css';
-import AgendamentoPage from './components/Agendamento';
-import { Button, Modal, Input } from 'antd';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Button } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 import AppRoutes from './routes/routes';
 import Footer from './components/footer';
+import AgendamentoPage from './components/Agendamento';
+import ModalAdmin from './components/ModalAdmin';
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [password, setPassword] = useState('');
+const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const openModal = () => {
+    setModalVisible(true);
   };
 
-  const handleOk = () => {
-    if (password === '1234') {
-      setIsAuthenticated(true);
-      setIsModalVisible(false);
-    } else {
-      alert('Senha incorreta. Tente novamente.');
-    }
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const navigateToAdminPage = () => {
-    if (isAuthenticated) {
-      window.location.href = '/adminpage';
-    } else {
-      showModal();
-    }
+  const closeModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -42,22 +25,20 @@ function App() {
       <div className="App">
         <header className="App-header">
           <AppRoutes />
-          <div className='adminconfig'>
-            <Button type="primary" icon={<EllipsisOutlined />} onClick={navigateToAdminPage} />
+          <div className="adminconfig">
+            <Button type="primary" icon={<EllipsisOutlined />} onClick={openModal}>
+            </Button>
           </div>
-          <Routes>
-            <Route path="/adminpage" element={<Navigate to={isAuthenticated ? '/adminpage' : '/'} />} />
-          </Routes>
-          <AgendamentoPage/>
-
-          <Modal title="Digite a senha" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
-          </Modal>
-          <Footer/>
+          <AgendamentoPage />
+          <Footer />
         </header>
+        {modalVisible && ReactDOM.createPortal(
+          <ModalAdmin visible={modalVisible} onClose={closeModal} />,
+          document.body
+        )}
       </div>
     </Router>
   );
-}
+};
 
 export default App;
